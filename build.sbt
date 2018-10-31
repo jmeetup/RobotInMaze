@@ -2,9 +2,7 @@ name := "RobotInMaze"
 
 version := "0.1"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.7"
 
-libraryDependencies += "org.scalactic" %% "scalactic" % "2.2.6"
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
-    
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
