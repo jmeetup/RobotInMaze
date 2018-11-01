@@ -19,4 +19,11 @@ class CellTest extends UnitSpec {
     assert(cell.getRoom.topWall.isBuilt)
   }
 
+  it should "possible to mark cell as visited" in {
+    val cell = new Cell(new Coordinates(2,2))
+    cell.markVisited
+    assert(cell.isVisited)
+  }
+
+
 }

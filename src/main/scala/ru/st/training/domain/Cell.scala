@@ -1,8 +1,8 @@
 package ru.st.training.domain
 
 class Cell(coordinates: Coordinates) {
-  var isVisited = false
-  val room: MazeRoom = new MazeRoom()
+  private var visited = false
+  private val room: MazeRoom = new MazeRoom()
 
   def getCoordinates: Coordinates = {
     coordinates
@@ -10,5 +10,13 @@ class Cell(coordinates: Coordinates) {
 
   def getRoom: MazeRoom = {
     room
+  }
+
+  def markVisited: Unit = {
+    visited = true
+  }
+
+  def isVisited: Boolean = {
+    visited
   }
 }
