@@ -1,12 +1,10 @@
 package ru.st.training.domain
 
-import scala.collection.mutable
-
 /**
   * Created by mr.zoom on 02.04.2016.
   */
 class Maze(width: Int, height: Int) {
-  require(width  > 0 && height > 0, "the width and height must greater then 0.")
+  require(width > 0 && height > 0, "the width and height must greater then 0.")
 
   val grid = new Grid(width, height)
 
@@ -33,11 +31,26 @@ class Maze(width: Int, height: Int) {
     * @return
     */
   def generate(): Boolean = {
-    var backtrackerStack = List[Cell]()
+    var backtrackerStack = List.empty[Cell]
     var currentCell: Cell = prepare
 
-    while(!grid.isAllCellsAreVisited) {
-
+    while (!grid.isAllCellsAreVisited) {
+      val unvisitedNeighbours = grid.getUnvisitedNeighbours(currentCell)
+      if (!unvisitedNeighbours.isEmpty) {
+        val start = 1
+        val end = unvisitedNeighbours.length
+        val rnd = new scala.util.Random
+        val rndResult = start + rnd.nextInt((end - start) + 1)
+        val chosenCell = unvisitedNeighbours(rndResult)
+        backtrackerStack = currentCell :: backtrackerStack
+        removeTheWall(currentCell, chosenCell)
+        currentCell = chosenCell
+        currentCell.markVisited
+      }
+//      else if (!backtrackerStack.isEmpty) {
+//        val stackCell = backtrackerStack.tail
+//        currentCell = stackCell
+//      }
     }
 
     true
@@ -49,11 +62,31 @@ class Maze(width: Int, height: Int) {
     initCell
   }
 
-//  private def backtracker(stack :List[Cell]): Cell = {
-//
-//  }
+  private def removeTheWall(currentCell: Cell, chosenCell: Cell): Unit = {
+    if (currentCell.getCoordinates.getX == chosenCell.getCoordinates.getX) {
+      if (currentCell.getCoordinates.getY == chosenCell.getCoordinates.getY - 1) {
+        currentCell.getRoom.bottomWall.ruin
+        chosenCell.getRoom.topWall.ruin
+      } else if (currentCell.getCoordinates.getY == chosenCell.getCoordinates.getY + 1) {
+        currentCell.getRoom.topWall.ruin
+        chosenCell.getRoom.bottomWall.ruin
+      }
+    } else {
+      if (currentCell.getCoordinates.getX == chosenCell.getCoordinates.getX - 1) {
+        currentCell.getRoom.rightWall.ruin
+        chosenCell.getRoom.leftWall.ruin
+      } else if (currentCell.getCoordinates.getX == chosenCell.getCoordinates.getX + 1) {
+        currentCell.getRoom.leftWall.ruin
+        chosenCell.getRoom.rightWall.ruin
+      }
+    }
+  }
 
 
+  //  private def backtracker(stack :List[Cell]): Cell = {
+  //
+  //  }
+  //
 
 
 }

@@ -16,7 +16,7 @@ class GridTest extends UnitSpec {
 
   it should "construct cells with different coordinates" in {
     val grid = new Grid(1, 2)
-    assert(grid.getCellByCoordinatesXandY(1,2) != null)
+    assert(grid.getCellByCoordinatesXandY(1, 2) != null)
 
     assert(grid.getCellByCoordinates(new Coordinates(1, 100)).isEmpty)
   }
@@ -25,7 +25,7 @@ class GridTest extends UnitSpec {
     val grid = new Grid(10, 20)
     assert(grid.getInitialCell != null)
     val cell = grid.getInitialCell
-    val coordinates = new Coordinates(1,1)
+    val coordinates = new Coordinates(1, 1)
     assert(cell.getCoordinates == coordinates)
   }
 
@@ -41,13 +41,13 @@ class GridTest extends UnitSpec {
   it should "possible get unvisited neighbours" in {
     val grid = new Grid(2, 2)
     grid.getInitialCell.markVisited
-    val unvisitedNeighbours: List[Cell] =  grid.getUnvisitedNeighbours(grid.getInitialCell)
+    val unvisitedNeighbours: List[Cell] = grid.getUnvisitedNeighbours(grid.getInitialCell)
     assert(unvisitedNeighbours.length == 2)
     assert(unvisitedNeighbours.exists(neighb =>
       neighb.getCoordinates.getX == 1 && neighb.getCoordinates.getY == 2))
     val someCell = grid.getCellByCoordinatesXandY(1, 2)
-    if(someCell.isDefined) someCell.get.markVisited
-    val secondUnvisitedNeighbours: List[Cell] =  grid.getUnvisitedNeighbours(grid.getInitialCell)
+    if (someCell.isDefined) someCell.get.markVisited
+    val secondUnvisitedNeighbours: List[Cell] = grid.getUnvisitedNeighbours(grid.getInitialCell)
     assert(!secondUnvisitedNeighbours.exists(neighb =>
       neighb.getCoordinates.getX == 1 && neighb.getCoordinates.getY == 2))
   }

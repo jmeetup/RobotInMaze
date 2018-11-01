@@ -2,8 +2,7 @@ package ru.st.training.domain
 
 import scala.collection.mutable.ListBuffer
 
-class Grid(width: Int, height: Int) {
-
+class Grid(val width: Int, val height: Int) {
 
 
   private var a = 0
@@ -19,7 +18,7 @@ class Grid(width: Int, height: Int) {
 
 
   def getTotalCells: Int = {
-      cells.length
+    cells.length
   }
 
 
@@ -45,7 +44,7 @@ class Grid(width: Int, height: Int) {
     val coordinates: Coordinates = currentcell.getCoordinates
     val topNieghbour = cells.find(cell =>
       (cell.getCoordinates.getX == currentcell.getCoordinates.getX)
-      && (cell.getCoordinates.getY == currentcell.getCoordinates.getY - 1))
+        && (cell.getCoordinates.getY == currentcell.getCoordinates.getY - 1))
     val rightNieghbour = cells.find(cell =>
       (cell.getCoordinates.getX == currentcell.getCoordinates.getX + 1)
         && (cell.getCoordinates.getY == currentcell.getCoordinates.getY))
