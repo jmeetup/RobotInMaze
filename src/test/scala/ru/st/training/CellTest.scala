@@ -1,21 +1,20 @@
 package ru.st.training
 
-class CellTest  extends UnitSpec {
+import ru.st.training.domain.{Cell, Coordinates}
 
-  "A Cell" should "construct from column number, row number and maze room and not visited yet" in {
-    val room = new MazeRoom()
-    val cell = new Cell(2, 2, room)
+class CellTest extends UnitSpec {
+
+  "A Cell" should "construct from column number, row number and not visited yet" in {
+
+    val cell = new Cell(new Coordinates(2,2))
     assert(cell != null)
     assert(!cell.isVisited)
-    assert(cell.getRoom == room)
   }
 
   it should "possible to change room walls" in {
-    val room = new MazeRoom()
-    val cell = new Cell(2, 2, room)
+    val cell = new Cell(new Coordinates(2,2))
     assert(cell.getRoom.bottomWall.isBuilt)
     cell.getRoom.bottomWall.ruin
-    assert(cell.getRoom == room)
     assert(!cell.getRoom.bottomWall.isBuilt)
     assert(cell.getRoom.topWall.isBuilt)
   }

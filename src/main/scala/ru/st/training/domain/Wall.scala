@@ -1,4 +1,4 @@
-package ru.st.training
+package ru.st.training.domain
 
 class Wall(var status: Boolean = true) {
 

@@ -1,9 +1,11 @@
 package ru.st.training
 
+import ru.st.training.domain.Maze
+
 class MazeTest extends UnitSpec {
 
 
-  "A Maze" should "construct from with and height " in {
+  "A Maze" should "construct from width and height " in {
         val maze = new Maze(20, 20)
         assert(maze != null)
   }
@@ -20,6 +22,15 @@ class MazeTest extends UnitSpec {
     }
   }
 
+  it should "contain grid" in {
+    val maze = new Maze(20, 20)
+    assert(maze.getGrid != null)
+  }
+
+  it should "not contain  grid with empty cells" in {
+    val maze = new Maze(20, 20)
+    assert(!maze.getGrid.getCells.isEmpty)
+  }
 
 
 

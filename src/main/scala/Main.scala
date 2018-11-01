@@ -1,4 +1,5 @@
 import ru.st.training._
+import ru.st.training.domain.Maze
 
 /**
   * Created by mr.zoom on 29.03.2016.
