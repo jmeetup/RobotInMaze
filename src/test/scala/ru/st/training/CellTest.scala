@@ -14,7 +14,7 @@ class CellTest extends UnitSpec {
   it should "possible to change room walls" in {
     val cell = new Cell(new Coordinates(2,2))
     assert(cell.getRoom.bottomWall.isBuilt)
-    cell.getRoom.bottomWall.ruin
+    cell.ruinBottomWall
     assert(!cell.getRoom.bottomWall.isBuilt)
     assert(cell.getRoom.topWall.isBuilt)
   }
@@ -25,5 +25,8 @@ class CellTest extends UnitSpec {
     assert(cell.isVisited)
   }
 
+  it should "notify when room wall ruin" in {
+
+  }
 
 }

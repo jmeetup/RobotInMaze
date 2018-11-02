@@ -52,4 +52,6 @@ class GridTest extends UnitSpec {
       neighb.getCoordinates.getX == 1 && neighb.getCoordinates.getY == 2))
   }
 
+
+
 }
