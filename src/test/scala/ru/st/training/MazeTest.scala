@@ -34,7 +34,7 @@ class MazeTest extends UnitSpec {
 
 
   it should "generate maze" in {
-    val maze = new Maze(10, 10)
+    val maze = new Maze(20, 20)
     assert(maze.generate() == true)
   }
 

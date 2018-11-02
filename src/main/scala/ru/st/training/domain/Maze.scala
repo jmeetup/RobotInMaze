@@ -37,8 +37,8 @@ class Maze(width: Int, height: Int) {
     while (!grid.isAllCellsAreVisited) {
       val unvisitedNeighbours = grid.getUnvisitedNeighbours(currentCell)
       if (!unvisitedNeighbours.isEmpty) {
-        val start = 1
-        val end = unvisitedNeighbours.length
+        val start = 0
+        val end = unvisitedNeighbours.length - 1
         val rnd = new scala.util.Random
         val rndResult = start + rnd.nextInt((end - start) + 1)
         val chosenCell = unvisitedNeighbours(rndResult)
@@ -46,11 +46,13 @@ class Maze(width: Int, height: Int) {
         removeTheWall(currentCell, chosenCell)
         currentCell = chosenCell
         currentCell.markVisited
+
       }
-//      else if (!backtrackerStack.isEmpty) {
-//        val stackCell = backtrackerStack.tail
-//        currentCell = stackCell
-//      }
+      else if (!backtrackerStack.isEmpty) {
+        val stackCell = backtrackerStack.head
+        backtrackerStack = backtrackerStack.tail
+        currentCell = stackCell
+      }
     }
 
     true
