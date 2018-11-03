@@ -7,6 +7,7 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.canvas.Canvas
+import scalafx.scene.control.{Button, TextField}
 import scalafx.scene.effect.DropShadow
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.paint.Color._
@@ -18,34 +19,50 @@ object ScalaFXHelloWorld extends JFXApp {
   private val canvasWidth = 400
   private val canvasHeight = 400
   private val canvas = new Canvas(canvasWidth, canvasHeight) {
-    graphicsContext2D.setFill(SandyBrown)
-    graphicsContext2D.setStroke(Cyan)
-    graphicsContext2D.setLineWidth(5)
-    graphicsContext2D.strokeRect(0, //x of the upper left corner
-      0, //y of the upper left corner
-      canvasWidth, //width of the rectangle
-      canvasHeight) //height of the rectangle
+    graphicsContext2D.setFill(Black)
+  }
+
+  var maze: Maze = null
+  var isMazeInit = false
+
+
+  val wInput = new TextField {
 
   }
 
-  private val mazeWidth: Int = 5
-  private val mazeHeight: Int = 5
-  val maze = new Maze(mazeWidth, mazeHeight)
+  val hInput = new TextField {
 
-  //
-  //  val cellView: CellView = new CellView(canvas, 10, 10)
-  //  maze.getGrid.getInitialCell.addObserver(cellView)
-  createCellViews(maze)
-  maze.getGrid.getInitialCell.ruinLeftWall
+  }
 
-  //  maze.generate()
+  val createBtn = new Button {
+    thisButton =>
+    text = "Create"
+    padding = Insets(10)
+    tooltip = "Run create algorithm"
+    onAction = { _ =>
+      val w = wInput.text.value.toInt
+      val h = hInput.text.value.toInt
+      if (h > 0 && w > 0) {
+        maze = new Maze(w, h)
 
-  //
-  //  canvas.graphicsContext2D.setFill(Cyan)
-  //  canvas.graphicsContext2D.setStroke(SandyBrown)
-  //  canvas.graphicsContext2D.fillRect(20.0, 20.0, 20.0, 20.0)
+        createCellViews(maze, w, h)
+        isMazeInit = true
+      }
+    }
+  }
 
-  def createCellViews(maze: Maze): Unit = {
+  val genBtn = new Button {
+    thisButton =>
+    text = "Generate"
+    padding = Insets(10)
+    tooltip = "Run gen algorithm"
+    onAction = { _ =>
+      if (isMazeInit) maze.generate()
+    }
+  }
+
+
+  def createCellViews(maze: Maze, mazeWidth: Int, mazeHeight: Int): Unit = {
     for (a <- 1 to mazeWidth; b <- 1 to mazeHeight) {
       val coordinates = new Coordinates(a, b)
       val cell: Option[Cell] = maze.getGrid.getCellByCoordinates(coordinates)
@@ -93,6 +110,37 @@ object ScalaFXHelloWorld extends JFXApp {
                 spread = 0.25
               }
             }
+          )
+        }, new HBox {
+          padding = Insets(10)
+          children = Seq(
+            new Text {
+              padding = Insets(10, 10, 10, 10)
+              text = "Width"
+              style = "-fx-font: normal bold 20pt sans-serif"
+              fill = new LinearGradient(
+                endX = 0,
+                stops = Stops(Red, DarkRed))
+            },
+            wInput
+            ,
+            new Text {
+              padding = Insets(10, 10, 10, 10)
+              text = "Height"
+              style = "-fx-font: italic bold 20pt sans-serif"
+              fill = new LinearGradient(
+                endX = 0,
+                stops = Stops(White, DarkGray)
+              )
+              effect = new DropShadow {
+                color = DarkGray
+                radius = 15
+                spread = 0.25
+              }
+            },
+            hInput,
+            createBtn,
+            genBtn
           )
         },
           canvas
