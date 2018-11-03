@@ -21,7 +21,7 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
       canvas.graphicsContext2D.setFill(Black)
       canvas.graphicsContext2D.setStroke(SandyBrown)
       canvas.graphicsContext2D.setLineWidth(1)
-      canvas.graphicsContext2D.fillRect(startX -1 ,startY -1, cellWidth, cellHeight)
+//      canvas.graphicsContext2D.fillRect(startX -1 ,startY -1, cellWidth, cellHeight)
     }
 
     eventType match {
@@ -42,9 +42,8 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
         val endX = startX + cellHeight
         val startY = b * cellWidth
         val endY = startY
-        canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
-        canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
-        canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
+        canvas.graphicsContext2D.setStroke(Black)
+        canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
       }
 
       case CellState.RightWallRuin => {
@@ -53,9 +52,8 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
         val endX = startX + cellHeight
         val startY = b * cellWidth
         val endY = startY
-        canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
-        canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
-        canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
+        canvas.graphicsContext2D.setStroke(Black)
+        canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
       }
 
       case CellState.BottomWallRuin => {
@@ -64,9 +62,8 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
         val endX = startX + cellHeight
         val startY = b * cellWidth
         val endY = startY
-        canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
-        canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
-        canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
+        canvas.graphicsContext2D.setStroke(Black)
+        canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
       }
 
       case CellState.LeftWallRuin => {
@@ -75,9 +72,8 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
         val endX = startX + cellHeight
         val startY = b * cellWidth
         val endY = startY
-        canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
-        canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
-        canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
+        canvas.graphicsContext2D.setStroke(Black)
+        canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
       }
     }
   }
