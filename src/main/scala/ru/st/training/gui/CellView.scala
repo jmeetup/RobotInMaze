@@ -7,9 +7,9 @@ import scalafx.scene.paint.Color._
 
 class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObserver {
 
-  val cellWidth: Double = 40.0
+  val cellWidth: Double = 20.0
 
-  val cellHeight: Double = 40.0
+  val cellHeight: Double = 20.0
 
   override def update(eventType: CellState): Unit = {
 

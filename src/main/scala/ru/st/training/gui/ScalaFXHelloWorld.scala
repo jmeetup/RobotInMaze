@@ -16,8 +16,8 @@ import scalafx.scene.text.Text
 
 object ScalaFXHelloWorld extends JFXApp {
 
-  private val canvasWidth = 400
-  private val canvasHeight = 400
+  private val canvasWidth = 600
+  private val canvasHeight = 600
   private val canvas = new Canvas(canvasWidth, canvasHeight) {
     graphicsContext2D.setFill(Black)
   }
