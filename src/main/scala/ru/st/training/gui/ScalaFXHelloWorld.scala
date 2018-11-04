@@ -40,6 +40,7 @@ object ScalaFXHelloWorld extends JFXApp {
     padding = Insets(10)
     tooltip = "Run create algorithm"
     onAction = { _ =>
+      canvas.graphicsContext2D.clearRect(0, 0, canvasWidth, canvasHeight)
       val w = wInput.text.value.toInt
       val h = hInput.text.value.toInt
       if (h > 0 && w > 0) {
