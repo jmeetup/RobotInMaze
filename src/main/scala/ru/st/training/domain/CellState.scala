@@ -4,6 +4,8 @@ object CellState  extends Enumeration {
 
   type CellState = Value
 
-  val AllWallBuilt, TopWallRuin, RightWallRuin, BottomWallRuin, LeftWallRuin = Value
+  val AllWallBuilt, TopWallRuin, RightWallRuin, BottomWallRuin, LeftWallRuin,
+
+      AllWallBuiltWithExit = Value
 
 }

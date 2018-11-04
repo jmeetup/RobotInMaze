@@ -21,21 +21,21 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
       canvas.graphicsContext2D.setFill(Black)
       canvas.graphicsContext2D.setStroke(SandyBrown)
       canvas.graphicsContext2D.setLineWidth(1)
-//      canvas.graphicsContext2D.fillRect(startX -1 ,startY -1, cellWidth, cellHeight)
     }
 
     eventType match {
       case CellState.AllWallBuilt => {
-        prepare
-        val startX = a * cellHeight
-        val endX = startX + cellHeight
-        val startY = b * cellWidth
-        val endY = startY
-        canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
-        canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
-        canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
-        canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
+        allWallBuilt(prepare _)
       }
+      case CellState.AllWallBuiltWithExit => {
+        allWallBuilt(prepare _)
+        val startX = a * cellHeight
+        val startY = b * cellWidth
+        canvas.graphicsContext2D.setFill(Green)
+        canvas.graphicsContext2D.fillOval(startX, startY, cellWidth, cellHeight)
+      }
+
+
       case CellState.TopWallRuin => {
         prepare
         val startX = a * cellHeight
@@ -76,5 +76,17 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
         canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
       }
     }
+  }
+
+  private def allWallBuilt(prepare: () => Unit) = {
+    prepare()
+    val startX = a * cellHeight
+    val endX = startX + cellHeight
+    val startY = b * cellWidth
+    val endY = startY
+    canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
+    canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
+    canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
+    canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
   }
 }

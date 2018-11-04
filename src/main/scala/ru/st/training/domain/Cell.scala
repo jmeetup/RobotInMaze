@@ -39,6 +39,8 @@ class Cell(coordinates: Coordinates) {
 
 
   def markExit: Unit = {
+    cellState = CellState.AllWallBuiltWithExit
+    notifyObservers
     exit = true
   }
 
