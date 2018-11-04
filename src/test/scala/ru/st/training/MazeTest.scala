@@ -22,14 +22,9 @@ class MazeTest extends UnitSpec {
     }
   }
 
-  it should "contain grid" in {
-    val maze = new Maze(20, 20)
-    assert(maze.getGrid != null)
-  }
-
   it should "not contain  grid with empty cells" in {
     val maze = new Maze(20, 20)
-    assert(maze.getGrid.getTotalCells > 0)
+    assert(maze.getTotalCells > 0)
   }
 
 

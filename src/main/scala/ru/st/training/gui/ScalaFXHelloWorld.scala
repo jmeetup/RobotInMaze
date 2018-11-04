@@ -66,7 +66,7 @@ object ScalaFXHelloWorld extends JFXApp {
   def createCellViews(maze: Maze, mazeWidth: Int, mazeHeight: Int): Unit = {
     for (a <- 1 to mazeWidth; b <- 1 to mazeHeight) {
       val coordinates = new Coordinates(a, b)
-      val cell: Option[Cell] = maze.getGrid.getCellByCoordinates(coordinates)
+      val cell: Option[Cell] = maze.getCellByCoordinates(coordinates)
       if (cell.isDefined) {
         val cellView: CellView = new CellView(canvas, a, b)
         cell.get.addObserver(cellView)

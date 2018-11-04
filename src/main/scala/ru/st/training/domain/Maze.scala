@@ -4,13 +4,16 @@ package ru.st.training.domain
   * Created by mr.zoom on 02.04.2016.
   */
 class Maze(width: Int, height: Int) {
+
+
   require(width > 0 && height > 0, "the width and height must greater then 0.")
 
   val grid = new Grid(width, height)
 
-  def getGrid: Grid = {
-    grid
+  def getCellByCoordinates(coordinates: Coordinates): Option[Cell] = {
+    grid.getCellByCoordinates(coordinates)
   }
+
 
   /**
     * Recursive backtracker
@@ -84,11 +87,7 @@ class Maze(width: Int, height: Int) {
     }
   }
 
-
-  //  private def backtracker(stack :List[Cell]): Cell = {
-  //
-  //  }
-  //
+  def getTotalCells = grid.getTotalCells
 
 
 }
