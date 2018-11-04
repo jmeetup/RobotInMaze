@@ -20,7 +20,7 @@ class Grid(val width: Int, val height: Int) {
 
   private def generateExits = {
     val perimeterCells: List[Cell] = getPerimeterCells
-    val exitCount = roundUp(perimeterCells.length / 4)
+    val exitCount = 1 + roundUp(perimeterCells.length / 20)
     for (i <- 1 to exitCount) {
       val start = 0
       val end: Int = perimeterCells.length - 1

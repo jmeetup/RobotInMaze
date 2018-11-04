@@ -32,7 +32,7 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
         val startX = a * cellHeight
         val startY = b * cellWidth
         canvas.graphicsContext2D.setFill(Green)
-        canvas.graphicsContext2D.fillOval(startX, startY, cellWidth, cellHeight)
+        canvas.graphicsContext2D.fillRect(startX + 2, startY + 2, cellWidth - 5, cellHeight - 5)
       }
 
 
