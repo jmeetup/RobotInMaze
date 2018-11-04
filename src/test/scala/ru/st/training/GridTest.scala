@@ -52,6 +52,22 @@ class GridTest extends UnitSpec {
       neighb.getCoordinates.getX == 1 && neighb.getCoordinates.getY == 2))
   }
 
+  it should "possible get perimiter cells" in {
+    val grid = new Grid(3, 3)
+    val perimiter: List[Cell] = grid.getPerimeterCells
+    assert(perimiter.exists(cell =>
+      cell.getCoordinates == new Coordinates(1, 1)
+    ))
+    assert(!perimiter.exists(cell =>
+      cell.getCoordinates == new Coordinates(2, 2)
+    ))
+  }
 
 
+  it should "possible get some exits on grid" in {
+    val grid = new Grid(3, 3)
+    val  exits: List[Cell] = grid.getExits
+    assert(exits.nonEmpty)
+    exits.foreach(exitCell => assert(exitCell.isExit))
+  }
 }

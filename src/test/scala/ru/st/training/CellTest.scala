@@ -76,4 +76,12 @@ class CellTest extends UnitSpec {
 
   }
 
+  it should "mark cell to be exit" in {
+    val cell = new Cell(new Coordinates(2, 2))
+    assert(!cell.isExit )
+    cell.markExit
+    assert(cell.isExit)
+
+  }
+
 }

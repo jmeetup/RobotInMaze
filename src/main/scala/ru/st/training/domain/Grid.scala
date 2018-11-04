@@ -3,10 +3,9 @@ package ru.st.training.domain
 import scala.collection.mutable.ListBuffer
 
 class Grid(val width: Int, val height: Int) {
-
-
   private var a = 0
   private var b = 0
+
   private var tmpcells = new ListBuffer[Cell]()
   for (a <- 1 to width; b <- 1 to height) {
     val coordinates = new Coordinates(a, b)
@@ -15,6 +14,25 @@ class Grid(val width: Int, val height: Int) {
   }
   private val cells: List[Cell] = tmpcells.toList
   tmpcells = null
+
+  private var exits: Set[Cell] = Set.empty[Cell]
+  generateExits
+
+  private def generateExits = {
+    val perimeterCells: List[Cell] = getPerimeterCells
+    val exitCount = roundUp(perimeterCells.length / 4)
+    for (i <- 1 to exitCount) {
+      val start = 0
+      val end: Int = perimeterCells.length - 1
+      val rnd = new scala.util.Random
+      val rndResult: Int = start + rnd.nextInt((end - start) + 1)
+      exits += perimeterCells(rndResult)
+    }
+    exits.foreach(cell => cell.markExit)
+
+  }
+
+  def roundUp(d: Double) = math.ceil(d).toInt
 
 
   def getTotalCells: Int = {
@@ -58,4 +76,22 @@ class Grid(val width: Int, val height: Int) {
     neighbours.flatten.filter(neighbour => !neighbour.isVisited)
   }
 
+
+  def getPerimeterCells: List[Cell] = {
+    val topEdge = cells.filter(cell =>
+      cell.getCoordinates.getY == 1)
+    val rightEdge = cells.filter(cell =>
+      cell.getCoordinates.getX == height)
+    val bottomEdge = cells.filter(cell =>
+      cell.getCoordinates.getY == width)
+    val leftEdge = cells.filter(cell =>
+      cell.getCoordinates.getX == 1)
+    val perimeterCells = topEdge ::: rightEdge ::: bottomEdge ::: leftEdge ::: Nil
+    perimeterCells.toSet.toList
+  }
+
+
+  def getExits: List[Cell] = {
+      exits.toList
+  }
 }

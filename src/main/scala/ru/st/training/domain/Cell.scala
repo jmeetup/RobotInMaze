@@ -8,7 +8,7 @@ import scala.collection.mutable.ListBuffer
 class Cell(coordinates: Coordinates) {
   private var visited = false
   private val room: MazeRoom = MazeRoom()
-
+  private var exit = false
 
   private var observers: ListBuffer[CellObserver] = mutable.ListBuffer[CellObserver]()
   private var cellState: CellState = CellState.AllWallBuilt
@@ -36,6 +36,16 @@ class Cell(coordinates: Coordinates) {
   def isVisited: Boolean = {
     visited
   }
+
+
+  def markExit: Unit = {
+    exit = true
+  }
+
+  def isExit: Boolean = {
+    exit
+  }
+
 
   def ruinTopWall: Unit = {
     room.topWall.ruin
