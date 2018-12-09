@@ -44,12 +44,12 @@ class GridTest extends UnitSpec {
     val unvisitedNeighbours: List[Cell] = grid.getUnvisitedNeighbours(grid.getInitialCell)
     assert(unvisitedNeighbours.length == 2)
     assert(unvisitedNeighbours.exists(neighb =>
-      neighb.getCoordinates.getX == 1 && neighb.getCoordinates.getY == 2))
+      neighb.getCoordinates.x == 1 && neighb.getCoordinates.y == 2))
     val someCell = grid.getCellByCoordinatesXandY(1, 2)
     if (someCell.isDefined) someCell.get.markVisited
     val secondUnvisitedNeighbours: List[Cell] = grid.getUnvisitedNeighbours(grid.getInitialCell)
     assert(!secondUnvisitedNeighbours.exists(neighb =>
-      neighb.getCoordinates.getX == 1 && neighb.getCoordinates.getY == 2))
+      neighb.getCoordinates.x == 1 && neighb.getCoordinates.y == 2))
   }
 
   it should "possible get perimiter cells" in {

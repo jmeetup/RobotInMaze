@@ -10,8 +10,8 @@ class CoordinatesTest extends UnitSpec  {
 
   it should "possible to get x and y" in {
     val coordinates = new Coordinates(2, 2)
-    assert(coordinates.getX == 2)
-    assert(coordinates.getY == 2)
+    assert(coordinates.x == 2)
+    assert(coordinates.y == 2)
   }
 
 }
