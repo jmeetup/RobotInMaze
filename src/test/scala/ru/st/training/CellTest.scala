@@ -7,13 +7,13 @@ class CellTest extends UnitSpec {
 
   "A Cell" should "construct from column number, row number and not visited yet" in {
 
-    val cell = new Cell(new Coordinates(2, 2))
+    val cell = new Cell(Coordinates(2, 2))
     assert(cell != null)
     assert(!cell.isVisited)
   }
 
   it should "possible to change room walls" in {
-    val cell = new Cell(new Coordinates(2, 2))
+    val cell = new Cell(Coordinates(2, 2))
     assert(cell.getRoom.bottomWall.isBuilt)
     cell.ruinBottomWall
     assert(!cell.getRoom.bottomWall.isBuilt)
@@ -21,7 +21,7 @@ class CellTest extends UnitSpec {
   }
 
   it should "possible to mark cell as visited" in {
-    val cell = new Cell(new Coordinates(2, 2))
+    val cell = new Cell(Coordinates(2, 2))
     cell.markVisited
     assert(cell.isVisited)
   }
@@ -60,7 +60,7 @@ class CellTest extends UnitSpec {
       }
     }
 
-    val cell = new Cell(new Coordinates(1, 1))
+    val cell = new Cell(Coordinates(1, 1))
     val o: O = new O
     cell.addObserver(o)
     cell.currentState
@@ -77,7 +77,7 @@ class CellTest extends UnitSpec {
   }
 
   it should "mark cell to be exit" in {
-    val cell = new Cell(new Coordinates(2, 2))
+    val cell = new Cell(Coordinates(2, 2))
     assert(!cell.isExit )
     cell.markExit
     assert(cell.isExit)

@@ -8,7 +8,7 @@ class Grid(val width: Int, val height: Int) {
 
   private var tmpcells = new ListBuffer[Cell]()
   for (a <- 1 to width; b <- 1 to height) {
-    val coordinates = new Coordinates(a, b)
+    val coordinates = Coordinates(a, b)
     val cell = new Cell(coordinates)
     tmpcells += cell
   }
@@ -41,7 +41,7 @@ class Grid(val width: Int, val height: Int) {
 
 
   def getCellByCoordinatesXandY(x: Int, y: Int): Option[Cell] = {
-    val coordinates = new Coordinates(x, y)
+    val coordinates = Coordinates(x, y)
     cells.find(cell => cell.getCoordinates == coordinates)
   }
 

@@ -18,14 +18,14 @@ class GridTest extends UnitSpec {
     val grid = new Grid(1, 2)
     assert(grid.getCellByCoordinatesXandY(1, 2) != null)
 
-    assert(grid.getCellByCoordinates(new Coordinates(1, 100)).isEmpty)
+    assert(grid.getCellByCoordinates(Coordinates(1, 100)).isEmpty)
   }
 
   it should "return init cell" in {
     val grid = new Grid(10, 20)
     assert(grid.getInitialCell != null)
     val cell = grid.getInitialCell
-    val coordinates = new Coordinates(1, 1)
+    val coordinates = Coordinates(1, 1)
     assert(cell.getCoordinates == coordinates)
   }
 
@@ -56,10 +56,10 @@ class GridTest extends UnitSpec {
     val grid = new Grid(3, 3)
     val perimiter: List[Cell] = grid.getPerimeterCells
     assert(perimiter.exists(cell =>
-      cell.getCoordinates == new Coordinates(1, 1)
+      cell.getCoordinates == Coordinates(1, 1)
     ))
     assert(!perimiter.exists(cell =>
-      cell.getCoordinates == new Coordinates(2, 2)
+      cell.getCoordinates == Coordinates(2, 2)
     ))
   }
 
