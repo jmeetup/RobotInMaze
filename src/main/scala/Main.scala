@@ -1,4 +1,3 @@
-import ru.st.training._
 import ru.st.training.domain.Maze
 
 /**
