@@ -5,7 +5,7 @@ class Robot(val coordinates: Coordinates, val maze: Maze) {
 
   require(maze.getCellByCoordinates(coordinates).isDefined, "must init with coordinates which belong to maze")
   var currentCoordinates: Coordinates = coordinates
-
+  maze.getCellByCoordinates(currentCoordinates).get.putRobotIntoCell
 
   def moveToTheTop: Boolean = {
     true
@@ -20,7 +20,14 @@ class Robot(val coordinates: Coordinates, val maze: Maze) {
   }
 
   def moveToTheLeft: Boolean = {
-    isItPossibleMoveToTheLeft
+    var result: Boolean = false
+    if (isItPossibleMoveToTheLeft) {
+      val curCell: Option[Cell] = maze.getCellByCoordinates(currentCoordinates)
+      currentCoordinates = Coordinates(curCell.get.getCoordinates.x - 1, curCell.get.getCoordinates.y)
+      curCell.get.putRobotIntoCell
+      result = true
+    }
+    result
   }
 
   def isItExitFromMaze: Boolean = {

@@ -23,58 +23,116 @@ class CellView(val canvas: Canvas, val a: Double, val b: Double) extends CellObs
       canvas.graphicsContext2D.setLineWidth(1)
     }
 
+    def paintRobot:Unit = {
+      val startX = a * cellHeight
+      val startY = b * cellWidth
+      canvas.graphicsContext2D.setFill(Red)
+      canvas.graphicsContext2D.fillOval(startX + 4, startY + 4, cellWidth - 8, cellHeight - 8)
+    }
+
+    def allWallBuiltWithExit:Unit = {
+      allWallBuilt(prepare _)
+      val startX = a * cellHeight
+      val startY = b * cellWidth
+      canvas.graphicsContext2D.setFill(Green)
+      canvas.graphicsContext2D.fillRect(startX + 2, startY + 2, cellWidth - 5, cellHeight - 5)
+    }
+
+    def topWallRuin:Unit = {
+      prepare
+      val startX = a * cellHeight
+      val endX = startX + cellHeight
+      val startY = b * cellWidth
+      val endY = startY
+      canvas.graphicsContext2D.setStroke(Black)
+      canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
+    }
+
+    def rightWallRuin:Unit = {
+      prepare
+      val startX = a * cellHeight
+      val endX = startX + cellHeight
+      val startY = b * cellWidth
+      val endY = startY
+      canvas.graphicsContext2D.setStroke(Black)
+      canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
+    }
+
+    def bottomWallRuin:Unit = {
+      prepare
+      val startX = a * cellHeight
+      val endX = startX + cellHeight
+      val startY = b * cellWidth
+      val endY = startY
+      canvas.graphicsContext2D.setStroke(Black)
+      canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
+    }
+
+    def leftWallRuinUnit = {
+      prepare
+      val startX = a * cellHeight
+      val endX = startX + cellHeight
+      val startY = b * cellWidth
+      val endY = startY
+      canvas.graphicsContext2D.setStroke(Black)
+      canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
+    }
+
     eventType match {
+
       case CellState.AllWallBuilt => {
         allWallBuilt(prepare _)
       }
-      case CellState.AllWallBuiltWithExit => {
+
+      case CellState.AllWallBuiltWithRobot => {
         allWallBuilt(prepare _)
-        val startX = a * cellHeight
-        val startY = b * cellWidth
-        canvas.graphicsContext2D.setFill(Green)
-        canvas.graphicsContext2D.fillRect(startX + 2, startY + 2, cellWidth - 5, cellHeight - 5)
+        paintRobot
       }
 
+      case CellState.AllWallBuiltWithExit => {
+        allWallBuiltWithExit
+      }
+
+      case CellState.AllWallBuiltWithExitAndRobot => {
+        allWallBuiltWithExit
+        paintRobot
+      }
 
       case CellState.TopWallRuin => {
-        prepare
-        val startX = a * cellHeight
-        val endX = startX + cellHeight
-        val startY = b * cellWidth
-        val endY = startY
-        canvas.graphicsContext2D.setStroke(Black)
-        canvas.graphicsContext2D.strokeLine(startX, startY, endX, endY)
+        topWallRuin
+      }
+
+      case CellState.TopWallRuinWithRobot => {
+        topWallRuin
+        paintRobot
       }
 
       case CellState.RightWallRuin => {
-        prepare
-        val startX = a * cellHeight
-        val endX = startX + cellHeight
-        val startY = b * cellWidth
-        val endY = startY
-        canvas.graphicsContext2D.setStroke(Black)
-        canvas.graphicsContext2D.strokeLine(startX + cellHeight, startY, endX, endY + cellWidth) //right
+        rightWallRuin
+      }
+
+      case CellState.RightWallRuinWithRobot => {
+        rightWallRuin
+        paintRobot
       }
 
       case CellState.BottomWallRuin => {
-        prepare
-        val startX = a * cellHeight
-        val endX = startX + cellHeight
-        val startY = b * cellWidth
-        val endY = startY
-        canvas.graphicsContext2D.setStroke(Black)
-        canvas.graphicsContext2D.strokeLine(startX, startY + cellHeight, endX, endY + cellWidth) //bottom
+        bottomWallRuin
+      }
+
+      case CellState.BottomWallRuinWithRobot => {
+        bottomWallRuin
+        paintRobot
       }
 
       case CellState.LeftWallRuin => {
-        prepare
-        val startX = a * cellHeight
-        val endX = startX + cellHeight
-        val startY = b * cellWidth
-        val endY = startY
-        canvas.graphicsContext2D.setStroke(Black)
-        canvas.graphicsContext2D.strokeLine(startX, startY, startX, endY + cellWidth) //left
+        leftWallRuinUnit
       }
+      case CellState.LeftWallRuinWithRobot => {
+        leftWallRuinUnit
+        paintRobot
+      }
+
     }
   }
 

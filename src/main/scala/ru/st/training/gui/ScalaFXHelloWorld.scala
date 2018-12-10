@@ -1,7 +1,7 @@
 package ru.st.training.gui
 
 
-import ru.st.training.domain.{Cell, Coordinates, Maze}
+import ru.st.training.domain.{Cell, Coordinates, Maze, Robot}
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.Insets
@@ -58,7 +58,13 @@ object ScalaFXHelloWorld extends JFXApp {
     padding = Insets(10)
     tooltip = "Run gen algorithm"
     onAction = { _ =>
-      if (isMazeInit) maze.generate()
+      if (isMazeInit) {
+        if (maze.generate()) {
+          var r: Robot = new Robot(Coordinates(1,1), maze)
+        }
+
+      }
+
     }
   }
 

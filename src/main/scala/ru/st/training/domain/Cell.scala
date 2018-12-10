@@ -80,4 +80,35 @@ class Cell(coordinates: Coordinates) {
   private def notifyObservers: Unit = {
     observers.foreach(o => o.update(cellState))
   }
+
+
+  def putRobotIntoCell: Unit = {
+    cellState match {
+
+      case CellState.AllWallBuilt => {
+        cellState = CellState.AllWallBuiltWithRobot
+      }
+      case CellState.AllWallBuiltWithExit => {
+        cellState = CellState.AllWallBuiltWithExitAndRobot
+      }
+
+      case CellState.TopWallRuin => {
+        cellState = CellState.TopWallRuinWithRobot
+      }
+
+      case CellState.RightWallRuin => {
+        cellState = CellState.RightWallRuinWithRobot
+      }
+
+      case CellState.BottomWallRuin => {
+        cellState = CellState.BottomWallRuinWithRobot
+      }
+
+      case CellState.LeftWallRuin => {
+        cellState = CellState.LeftWallRuinWithRobot
+      }
+
+    }
+    notifyObservers
+  }
 }
