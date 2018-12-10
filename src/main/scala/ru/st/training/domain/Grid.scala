@@ -61,17 +61,17 @@ class Grid(val width: Int, val height: Int) {
   def getUnvisitedNeighbours(currentcell: Cell): List[Cell] = {
     val coordinates: Coordinates = currentcell.getCoordinates
     val topNieghbour = cells.find(cell =>
-      (cell.getCoordinates.getX == currentcell.getCoordinates.getX)
-        && (cell.getCoordinates.getY == currentcell.getCoordinates.getY - 1))
+      (cell.getCoordinates.x == currentcell.getCoordinates.x)
+        && (cell.getCoordinates.y == currentcell.getCoordinates.y - 1))
     val rightNieghbour = cells.find(cell =>
-      (cell.getCoordinates.getX == currentcell.getCoordinates.getX + 1)
-        && (cell.getCoordinates.getY == currentcell.getCoordinates.getY))
+      (cell.getCoordinates.x == currentcell.getCoordinates.x + 1)
+        && (cell.getCoordinates.y == currentcell.getCoordinates.y))
     val bottomNieghbour = cells.find(cell =>
-      (cell.getCoordinates.getX == currentcell.getCoordinates.getX)
-        && (cell.getCoordinates.getY == currentcell.getCoordinates.getY + 1))
+      (cell.getCoordinates.x == currentcell.getCoordinates.x)
+        && (cell.getCoordinates.y == currentcell.getCoordinates.y + 1))
     val leftNieghbour = cells.find(cell =>
-      (cell.getCoordinates.getX == currentcell.getCoordinates.getX - 1)
-        && (cell.getCoordinates.getY == currentcell.getCoordinates.getY))
+      (cell.getCoordinates.x == currentcell.getCoordinates.x - 1)
+        && (cell.getCoordinates.y == currentcell.getCoordinates.y))
     val neighbours = List(topNieghbour, rightNieghbour, bottomNieghbour, leftNieghbour)
     neighbours.flatten.filter(neighbour => !neighbour.isVisited)
   }
@@ -79,13 +79,13 @@ class Grid(val width: Int, val height: Int) {
 
   def getPerimeterCells: List[Cell] = {
     val topEdge = cells.filter(cell =>
-      cell.getCoordinates.getY == 1)
+      cell.getCoordinates.y == 1)
     val rightEdge = cells.filter(cell =>
-      cell.getCoordinates.getX == height)
+      cell.getCoordinates.x == height)
     val bottomEdge = cells.filter(cell =>
-      cell.getCoordinates.getY == width)
+      cell.getCoordinates.y == width)
     val leftEdge = cells.filter(cell =>
-      cell.getCoordinates.getX == 1)
+      cell.getCoordinates.x == 1)
     val perimeterCells = topEdge ::: rightEdge ::: bottomEdge ::: leftEdge ::: Nil
     perimeterCells.toSet.toList
   }

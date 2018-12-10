@@ -68,19 +68,19 @@ class Maze(width: Int, height: Int) {
   }
 
   private def removeTheWall(currentCell: Cell, chosenCell: Cell): Unit = {
-    if (currentCell.getCoordinates.getX == chosenCell.getCoordinates.getX) {
-      if (currentCell.getCoordinates.getY == chosenCell.getCoordinates.getY - 1) {
+    if (currentCell.getCoordinates.x == chosenCell.getCoordinates.x) {
+      if (currentCell.getCoordinates.y == chosenCell.getCoordinates.y - 1) {
         currentCell.ruinBottomWall
         chosenCell.ruinTopWall
-      } else if (currentCell.getCoordinates.getY == chosenCell.getCoordinates.getY + 1) {
+      } else if (currentCell.getCoordinates.y == chosenCell.getCoordinates.y + 1) {
         currentCell.ruinTopWall
         chosenCell.ruinBottomWall
       }
     } else {
-      if (currentCell.getCoordinates.getX == chosenCell.getCoordinates.getX - 1) {
+      if (currentCell.getCoordinates.x == chosenCell.getCoordinates.x - 1) {
         currentCell.ruinRightWall
         chosenCell.ruinLeftWall
-      } else if (currentCell.getCoordinates.getX == chosenCell.getCoordinates.getX + 1) {
+      } else if (currentCell.getCoordinates.x == chosenCell.getCoordinates.x + 1) {
         currentCell.ruinLeftWall
         chosenCell.ruinRightWall
       }
