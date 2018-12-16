@@ -1,6 +1,7 @@
-package ru.st.training.domain
+package ru.st.training.domain.purestuff
 
 import ru.st.training.domain.CellState.CellState
+import ru.st.training.domain.{CellObserver, CellState, Coordinates, MazeRoom}
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -13,11 +14,11 @@ case class PureCell(coordinates: Coordinates) {
   private var observers: ListBuffer[CellObserver] = mutable.ListBuffer[CellObserver]()
   private var cellState: CellState = CellState.AllWallBuilt
 
-  def addObserver(o: CellObserver) = {
+  def addObserver(o: CellObserver): ListBuffer[CellObserver] = {
     observers += o
   }
 
-  def removeObserver(o: CellObserver) = {
+  def removeObserver(o: CellObserver): ListBuffer[CellObserver] = {
     observers -= o
   }
 
@@ -29,7 +30,7 @@ case class PureCell(coordinates: Coordinates) {
     room
   }
 
-  def markVisited: Unit = {
+  def markVisited(): Unit = {
     visited = true
   }
 
@@ -38,9 +39,9 @@ case class PureCell(coordinates: Coordinates) {
   }
 
 
-  def markExit: Unit = {
+  def markExit(): Unit = {
     cellState = CellState.AllWallBuiltWithExit
-    notifyObservers
+    notifyObservers()
     exit = true
   }
 
@@ -49,67 +50,62 @@ case class PureCell(coordinates: Coordinates) {
   }
 
 
-  def ruinTopWall: Unit = {
+  def ruinTopWall(): Unit = {
     room.topWall.ruin
     cellState = CellState.TopWallRuin
-    notifyObservers
+    notifyObservers()
   }
 
-  def ruinRightWall: Unit = {
+  def ruinRightWall(): Unit = {
     room.rightWall.ruin
     cellState = CellState.RightWallRuin
-    notifyObservers
+    notifyObservers()
   }
 
-  def ruinBottomWall: Unit = {
+  def ruinBottomWall(): Unit = {
     room.bottomWall.ruin
     cellState = CellState.BottomWallRuin
-    notifyObservers
+    notifyObservers()
   }
 
-  def ruinLeftWall: Unit = {
+  def ruinLeftWall(): Unit = {
     room.leftWall.ruin
     cellState = CellState.LeftWallRuin
-    notifyObservers
+    notifyObservers()
   }
 
-  def currentState: Unit = {
-    notifyObservers
+  def currentState(): Unit = {
+    notifyObservers()
   }
 
-  private def notifyObservers: Unit = {
+  private def notifyObservers(): Unit = {
     observers.foreach(o => o.update(cellState))
   }
 
 
+  def putRobotIntoCell(): Unit = {
 
-  def putRobotIntoCell: Unit = {
     cellState match {
 
-      case CellState.AllWallBuilt => {
+      case CellState.AllWallBuilt =>
         cellState = CellState.AllWallBuiltWithRobot
-      }
-      case CellState.AllWallBuiltWithExit => {
+
+      case CellState.AllWallBuiltWithExit =>
         cellState = CellState.AllWallBuiltWithExitAndRobot
-      }
 
-      case CellState.TopWallRuin => {
+      case CellState.TopWallRuin =>
         cellState = CellState.TopWallRuinWithRobot
-      }
 
-      case CellState.RightWallRuin => {
+      case CellState.RightWallRuin =>
         cellState = CellState.RightWallRuinWithRobot
-      }
 
-      case CellState.BottomWallRuin => {
+      case CellState.BottomWallRuin =>
         cellState = CellState.BottomWallRuinWithRobot
-      }
 
-      case CellState.LeftWallRuin => {
+      case CellState.LeftWallRuin =>
         cellState = CellState.LeftWallRuinWithRobot
-      }
 
     }
-    notifyObservers
+    notifyObservers()
   }
 }
